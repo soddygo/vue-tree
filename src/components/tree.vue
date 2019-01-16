@@ -86,9 +86,14 @@ export default {
       const {children} = node
       if (children && children.length) {
         children.forEach(child => {
-          this.$set(child, 'checked', checked)
-          if (halfcheck) {
-            this.$set(child, 'halfcheck', false)
+          //检查是否节点是否被设置为禁用了
+          if(child && child.chkDisabled === true){
+            //节点复选框被禁用,不对复选框做操作
+          }else {
+            this.$set(child, 'checked', checked)
+            if (halfcheck) {
+              this.$set(child, 'halfcheck', false)
+            }
           }
           this.childCheckedHandle(child, checked, halfcheck)
         })
@@ -266,7 +271,7 @@ export default {
 
     // opt: Array
     _getNodes (opt, hasOpt, data = this.data, isOriginal = false, ignoreInvisibleNode, res = []) {
-      // let res = [] 
+      // let res = []
       const _pushNode = (arr, node, isOrg) => {
         if (isOrg) {
           arr.push(node)
